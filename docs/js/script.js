@@ -5,7 +5,7 @@ const detalle = document.getElementById("detalle");
 const actualEl = document.getElementById("actual");
 const totalEl = document.getElementById("total");
 
-let montoActual = 1185000;
+let montoActual = 1195000;
 let detalleActivo = false;
 let primera = true;
 
