@@ -64,22 +64,7 @@ body{
 }
 
 .decoracion{position:fixed;bottom:10px;width:100%;text-align:center}
-.arbol{font-size:44px;cursor:pointer}
+.arbol{font-size:44px}
 .regalos{font-size:28px}
-
-.admin{
-  position:fixed;bottom:20px;right:20px;
-  background:#000;padding:14px;
-  border-radius:12px;width:200px;
-  border:1px solid #ffd966
-}
-.admin h3{color:#ffd966;font-size:14px;margin-bottom:6px}
-.admin input,.admin button{
-  width:100%;margin-top:6px;padding:6px
-}
-#btnSumar{background:#25d366}
-#btnRestar{background:#ffb84d}
-#btnReset{background:#ff4d4d;color:#fff}
-.oculto{display:none}
 
 @media(max-width:480px){.cifra{font-size:30px}}

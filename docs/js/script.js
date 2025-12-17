@@ -1,8 +1,3 @@
-const CONFIG = {
-  objetivoTotal: 1380000,
-  claveAdmin: "906090"
-};
-
 const cifra = document.getElementById("cifraToggle");
 const hint = document.getElementById("hintTexto");
 const principal = document.getElementById("principal");
@@ -10,34 +5,32 @@ const detalle = document.getElementById("detalle");
 const actualEl = document.getElementById("actual");
 const totalEl = document.getElementById("total");
 
-const arbol = document.getElementById("arbolAdmin");
-const adminPanel = document.getElementById("adminPanel");
-const montoInput = document.getElementById("montoInput");
-const btnSumar = document.getElementById("btnSumar");
-const btnRestar = document.getElementById("btnRestar");
-const btnReset = document.getElementById("btnReset");
-
-let montoActual = Number(localStorage.getItem("montoActual")) || 1185000;
+let montoActual = 1185000;
 let detalleActivo = false;
 let primera = true;
 
+const CONFIG_OBJETIVO = 1380000;
+
+// Formatea números con puntos
 const fmt = n => n.toLocaleString("es-CL");
 
-function animar(el, a, b, d=1200){
-  const i=performance.now();
-  requestAnimationFrame(function f(t){
-    const p=Math.min((t-i)/d,1);
-    el.textContent=fmt(Math.floor(a+(b-a)*(1-Math.pow(1-p,3))));
-    if(p<1)requestAnimationFrame(f);
+function animar(el, from, to, duration=1200){
+  const start = performance.now();
+  requestAnimationFrame(function f(now){
+    const p = Math.min((now-start)/duration,1);
+    el.textContent = fmt(Math.floor(from+(to-from)*(1-Math.pow(1-p,3))));
+    if(p<1) requestAnimationFrame(f);
   });
 }
 
 function actualizar(){
-  const faltan = CONFIG.objetivoTotal - montoActual;
-  totalEl.textContent = fmt(CONFIG.objetivoTotal);
-  detalleActivo
-    ? animar(actualEl,0,montoActual)
-    : animar(principal,0,faltan);
+  const faltan = CONFIG_OBJETIVO - montoActual;
+  totalEl.textContent = fmt(CONFIG_OBJETIVO);
+  if(detalleActivo){
+    animar(actualEl,0,montoActual);
+  } else {
+    animar(principal,0,faltan);
+  }
 }
 
 actualizar();
@@ -48,37 +41,8 @@ cifra.onclick = () => {
     hint.style.display="none";
     primera=false;
   }
-  detalleActivo=!detalleActivo;
+  detalleActivo = !detalleActivo;
   principal.classList.toggle("activo",!detalleActivo);
   detalle.classList.toggle("activo",detalleActivo);
-  actualizar();
-};
-
-arbol.onclick = () => {
-  if(prompt("Clave admin:")===CONFIG.claveAdmin){
-    adminPanel.classList.toggle("oculto");
-  }
-};
-
-btnSumar.onclick = () => {
-  const v=Number(montoInput.value); if(!v)return;
-  montoActual+=v;
-  localStorage.setItem("montoActual",montoActual);
-  montoInput.value="";
-  actualizar();
-};
-
-btnRestar.onclick = () => {
-  const v=Number(montoInput.value); if(!v)return;
-  montoActual=Math.max(0,montoActual-v);
-  localStorage.setItem("montoActual",montoActual);
-  montoInput.value="";
-  actualizar();
-};
-
-btnReset.onclick = () => {
-  if(!confirm("¿Resetear monto?"))return;
-  montoActual=0;
-  localStorage.setItem("montoActual",0);
   actualizar();
 };
