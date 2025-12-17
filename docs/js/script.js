@@ -1,30 +1,51 @@
-const objetivo = 1184758;
-const total = 1380000;
+const cifra = document.getElementById("cifraToggle");
+
+const principal = document.getElementById("principal");
+const detalle = document.getElementById("detalle");
 
 const actualEl = document.getElementById("actual");
-const totalEl = document.getElementById("total");
 
-const formato = (n) => n.toLocaleString("es-CL");
+const FALTAN = 195000;
+const ACTUAL = 1185000;
+const TOTAL = 1380000;
 
-totalEl.textContent = formato(total);
+let mostrandoDetalle = false;
 
-const duracion = 2500;
-const inicio = performance.now();
+/* ====== FORMATO ====== */
+const formato = n => n.toLocaleString("es-CL");
 
-function easeOutCubic(t) {
-  return 1 - Math.pow(1 - t, 3);
-}
+/* ====== CONTADOR ANIMADO ====== */
+function animarNumero(el, desde, hasta, duracion = 1200) {
+  const inicio = performance.now();
 
-function animar(tiempo) {
-  const progreso = Math.min((tiempo - inicio) / duracion, 1);
-  const eased = easeOutCubic(progreso);
+  function frame(t) {
+    const progreso = Math.min((t - inicio) / duracion, 1);
+    const eased = 1 - Math.pow(1 - progreso, 3);
+    const valor = Math.floor(desde + (hasta - desde) * eased);
+    el.textContent = formato(valor);
 
-  const valor = Math.floor(eased * objetivo);
-  actualEl.textContent = formato(valor);
-
-  if (progreso < 1) {
-    requestAnimationFrame(animar);
+    if (progreso < 1) requestAnimationFrame(frame);
   }
+
+  requestAnimationFrame(frame);
 }
 
-requestAnimationFrame(animar);
+/* ====== ANIMACIÓN INICIAL ====== */
+animarNumero(principal, 0, FALTAN);
+
+/* ====== TOGGLE CON TRANSICIÓN ====== */
+cifra.addEventListener("click", () => {
+  mostrandoDetalle = !mostrandoDetalle;
+
+  if (mostrandoDetalle) {
+    principal.classList.remove("activo");
+    detalle.classList.add("activo");
+
+    animarNumero(actualEl, 0, ACTUAL);
+  } else {
+    detalle.classList.remove("activo");
+    principal.classList.add("activo");
+
+    animarNumero(principal, 0, FALTAN);
+  }
+});
