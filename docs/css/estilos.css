@@ -1,177 +1,85 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle,#b30000,#2b0000);
+  color:#fff
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at top, #b30000, #2b0000);
-  color: #ffffff;
+.luces{
+  position:fixed;top:0;width:100%;
+  display:flex;justify-content:space-evenly;padding:8px
+}
+.luces span{
+  width:12px;height:12px;border-radius:50%;
+  background:#ffd966;animation:blink 1.6s infinite
+}
+.luces span:nth-child(even){background:#ff4d4d;animation-delay:.8s}
+@keyframes blink{50%{opacity:1}0%,100%{opacity:.3}}
+
+.contenedor{
+  background:rgba(0,0,0,.3);
+  padding:30px 24px;
+  border-radius:18px;
+  text-align:center;
+  max-width:420px;width:100%
 }
 
-/* LUCES */
-.luces {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  padding: 10px 0;
+.cifra{
+  font-size:36px;
+  font-weight:800;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  min-height:1.6em
+}
+.numero{
+  grid-area:1/1;
+  opacity:0;
+  transform:translateY(12px);
+  transition:.3s;
+  white-space:nowrap
+}
+.numero.activo{opacity:1;transform:none}
+.separador{margin:0 6px;color:#ffd966}
+
+.pulso{animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.glow{text-shadow:0 0 10px #ffd966}
+
+.hint{font-size:13px;color:#ffd966;margin-top:6px}
+.objetivo{margin-top:10px;color:#ffe8b3}
+
+.btn-whatsapp{
+  margin-top:26px;
+  display:block;
+  padding:14px;
+  background:#25d366;
+  color:#fff;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700
 }
 
-.luces span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffd966;
-  animation: parpadeo 1.6s infinite;
-}
+.decoracion{position:fixed;bottom:10px;width:100%;text-align:center}
+.arbol{font-size:44px;cursor:pointer}
+.regalos{font-size:28px}
 
-.luces span:nth-child(even) {
-  background: #ff4d4d;
-  animation-delay: .8s;
+.admin{
+  position:fixed;bottom:20px;right:20px;
+  background:#000;padding:14px;
+  border-radius:12px;width:200px;
+  border:1px solid #ffd966
 }
-
-@keyframes parpadeo {
-  0%,100% { opacity: .3 }
-  50% { opacity: 1 }
+.admin h3{color:#ffd966;font-size:14px;margin-bottom:6px}
+.admin input,.admin button{
+  width:100%;margin-top:6px;padding:6px
 }
+#btnSumar{background:#25d366}
+#btnRestar{background:#ffb84d}
+#btnReset{background:#ff4d4d;color:#fff}
+.oculto{display:none}
 
-/* CONTENEDOR */
-.contenedor {
-  max-width: 420px;
-  width: 100%;
-  padding: 32px 24px;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
-  border-radius: 18px;
-  backdrop-filter: blur(6px);
-}
-
-/* CIFRA (UNA SOLA LÍNEA) */
-.cifra {
-  font-size: 36px;
-  font-weight: 800;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  min-height: 1.6em;
-  position: relative;
-}
-
-.numero {
-  grid-area: 1 / 1;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  white-space: nowrap;
-}
-
-.numero.activo {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.separador {
-  margin: 0 6px;
-  color: #ffd966;
-}
-
-/* EFECTOS */
-.pulso {
-  animation: pulso 1.6s infinite;
-}
-
-@keyframes pulso {
-  50% { transform: scale(1.04); }
-}
-
-.glow {
-  text-shadow: 0 0 10px #ffd966;
-}
-
-.hint {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #ffd966;
-}
-
-.objetivo {
-  margin-top: 10px;
-  color: #ffe8b3;
-}
-
-/* BOTÓN */
-.btn-whatsapp {
-  display: block;
-  margin-top: 26px;
-  padding: 14px;
-  background: #25d366;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: 700;
-}
-
-/* DECORACIÓN */
-.decoracion {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-}
-
-.arbol {
-  font-size: 44px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.regalos {
-  font-size: 28px;
-}
-
-/* PANEL ADMIN */
-.admin {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #000;
-  padding: 14px;
-  border-radius: 12px;
-  width: 200px;
-  border: 1px solid #ffd966;
-  z-index: 9999;
-}
-
-.admin h3 {
-  color: #ffd966;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.admin input,
-.admin button {
-  width: 100%;
-  margin-top: 6px;
-  padding: 6px;
-}
-
-#btnSumar { background: #25d366; }
-#btnReset { background: #ff4d4d; color: #fff; }
-
-.oculto {
-  display: none;
-}
-
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  .cifra {
-    font-size: 30px;
-  }
-}
+@media(max-width:480px){.cifra{font-size:30px}}
