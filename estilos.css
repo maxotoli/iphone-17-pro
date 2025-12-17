@@ -1,0 +1,205 @@
+/* ===============================
+   RESET
+================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+/* ===============================
+   HTML & BODY
+================================ */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* ===============================
+   BODY
+================================ */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #b30000, #3a0000);
+  color: #ffffff;
+  position: relative;
+}
+
+/* ===============================
+   LUCES NAVIDEÑAS
+================================ */
+.luces {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  z-index: 5;
+}
+
+.luces span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffd966;
+  animation: parpadeo 1.8s infinite;
+}
+
+.luces span:nth-child(even) {
+  background: #ff4d4d;
+  animation-delay: 0.9s;
+}
+
+@keyframes parpadeo {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ===============================
+   CONTENEDOR
+================================ */
+.contenedor {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+/* ===============================
+   TITULO
+================================ */
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #ffd966;
+}
+
+/* ===============================
+   CIFRA (UNA SOLA LÍNEA)
+================================ */
+.cifra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 217, 102, 0.35);
+}
+
+.cifra span {
+  display: inline-block;
+}
+
+.separador {
+  color: #ffd966;
+  margin: 0 6px;
+}
+
+/* ===============================
+   TEXTO
+================================ */
+.objetivo {
+  font-size: 15px;
+  color: #ffe8b3;
+}
+
+/* ===============================
+   BOTÓN WHATSAPP
+================================ */
+.btn-whatsapp {
+  display: inline-block;
+  width: 100%;
+  margin-top: 26px;
+  padding: 14px 0;
+  background: linear-gradient(135deg, #1fa855, #25d366);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(37, 211, 102, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.5);
+}
+
+/* ===============================
+   DECORACIÓN INFERIOR
+================================ */
+.decoracion {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.arbol {
+  font-size: 42px;
+  margin-bottom: 6px;
+}
+
+.regalos {
+  font-size: 28px;
+}
+
+/* ===============================
+   TABLET / DESKTOP
+================================ */
+@media (min-width: 768px) {
+  .contenedor {
+    max-width: 520px;
+    padding: 44px 50px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .cifra {
+    font-size: 54px;
+  }
+
+  .objetivo {
+    font-size: 18px;
+  }
+
+  .btn-whatsapp {
+    width: auto;
+    padding: 15px 34px;
+    font-size: 16px;
+  }
+
+  .arbol {
+    font-size: 56px;
+  }
+
+  .regalos {
+    font-size: 36px;
+  }
+}
