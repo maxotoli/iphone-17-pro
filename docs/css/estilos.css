@@ -93,8 +93,36 @@ h1 {
   transform: translateX(-50%) translateY(0);
 }
 
-.separador {
+/* EFECTO PULSO */
+.pulso {
+  animation: pulso 1.6s infinite;
+}
+
+@keyframes pulso {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* EFECTO NEÓN */
+.glow {
+  text-shadow:
+    0 0 8px rgba(255, 217, 102, 0.8),
+    0 0 16px rgba(255, 217, 102, 0.6);
+}
+
+/* TEXTO AYUDA */
+.hint {
+  margin-top: 6px;
+  font-size: 13px;
   color: #ffd966;
+  opacity: 0.9;
+  animation: fadeHint 2s infinite;
+}
+
+@keyframes fadeHint {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
 /* TEXTO */

@@ -1,20 +1,20 @@
 const cifra = document.getElementById("cifraToggle");
+const hint = document.getElementById("hintTexto");
 
 const principal = document.getElementById("principal");
 const detalle = document.getElementById("detalle");
-
 const actualEl = document.getElementById("actual");
 
 const FALTAN = 195000;
 const ACTUAL = 1185000;
-const TOTAL = 1380000;
 
 let mostrandoDetalle = false;
+let primeraInteraccion = true;
 
-/* ====== FORMATO ====== */
+/* FORMATO */
 const formato = n => n.toLocaleString("es-CL");
 
-/* ====== CONTADOR ANIMADO ====== */
+/* CONTADOR ANIMADO */
 function animarNumero(el, desde, hasta, duracion = 1200) {
   const inicio = performance.now();
 
@@ -30,22 +30,28 @@ function animarNumero(el, desde, hasta, duracion = 1200) {
   requestAnimationFrame(frame);
 }
 
-/* ====== ANIMACIÓN INICIAL ====== */
+/* ANIMACIÓN INICIAL */
 animarNumero(principal, 0, FALTAN);
 
-/* ====== TOGGLE CON TRANSICIÓN ====== */
+/* TOGGLE */
 cifra.addEventListener("click", () => {
+
+  /* Apagar ayudas al primer toque */
+  if (primeraInteraccion) {
+    cifra.classList.remove("pulso", "glow");
+    hint.style.display = "none";
+    primeraInteraccion = false;
+  }
+
   mostrandoDetalle = !mostrandoDetalle;
 
   if (mostrandoDetalle) {
     principal.classList.remove("activo");
     detalle.classList.add("activo");
-
     animarNumero(actualEl, 0, ACTUAL);
   } else {
     detalle.classList.remove("activo");
     principal.classList.add("activo");
-
     animarNumero(principal, 0, FALTAN);
   }
 });
