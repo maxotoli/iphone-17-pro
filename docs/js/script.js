@@ -1,4 +1,3 @@
-// Elementos del DOM
 const cifra = document.getElementById("cifraToggle");
 const hint = document.getElementById("hintTexto");
 const principal = document.getElementById("principal");
@@ -6,26 +5,26 @@ const detalle = document.getElementById("detalle");
 const actualEl = document.getElementById("actual");
 const totalEl = document.getElementById("total");
 
-// Variables
-let montoActual = 0; // se cargará desde el gist
-const CONFIG_OBJETIVO = 1380000;
+let montoActual = 1245000; // cifra real
 let detalleActivo = false;
 let primera = true;
 
-// Formateo de números
+const CONFIG_OBJETIVO = 1380000;
+
+// Formatea números con puntos
 const fmt = n => n.toLocaleString("es-CL");
 
-// Animación de números
+// Animación suave de conteo
 function animar(el, from, to, duration=1200){
   const start = performance.now();
   requestAnimationFrame(function f(now){
-    const p = Math.min((now-start)/duration,1);
-    el.textContent = fmt(Math.floor(from+(to-from)*(1-Math.pow(1-p,3))));
-    if(p<1) requestAnimationFrame(f);
+    const progress = Math.min((now-start)/duration,1);
+    el.textContent = fmt(Math.floor(from + (to-from)*(1-Math.pow(1-progress,3))));
+    if(progress < 1) requestAnimationFrame(f);
   });
 }
 
-// Actualiza visualización
+// Actualiza la cifra en pantalla
 function actualizar(){
   const faltan = CONFIG_OBJETIVO - montoActual;
   totalEl.textContent = fmt(CONFIG_OBJETIVO);
@@ -36,35 +35,17 @@ function actualizar(){
   }
 }
 
-// Toggle entre detalle/principal
+actualizar();
+
+// Alternar entre diferencia y monto completo
 cifra.onclick = () => {
   if(primera){
     cifra.classList.remove("pulso","glow");
     hint.style.display="none";
-    primera=false;
+    primera = false;
   }
   detalleActivo = !detalleActivo;
-  principal.classList.toggle("activo",!detalleActivo);
-  detalle.classList.toggle("activo",detalleActivo);
+  principal.classList.toggle("activo", !detalleActivo);
+  detalle.classList.toggle("activo", detalleActivo);
   actualizar();
 };
-
-// Función para incrementar monto manualmente
-function aumentarMonto(cantidad=10000){
-  montoActual += cantidad;
-  if(montoActual > CONFIG_OBJETIVO) montoActual = CONFIG_OBJETIVO;
-  actualizar();
-}
-
-// Cargar monto desde gist de GitHub
-fetch('https://gist.githubusercontent.com/maxotoli/cc7e68ffa308b87bf72340058e30bdd1/raw/3180a104ad500a434698416118ba3ead3666f81c/monto.json')
-  .then(res => res.json())
-  .then(data => {
-    montoActual = data.montoActual;
-    actualizar();
-  })
-  .catch(err => {
-    console.error("No se pudo cargar el monto desde el gist", err);
-    montoActual = 1195000; // valor por defecto si falla
-    actualizar();
-  });
