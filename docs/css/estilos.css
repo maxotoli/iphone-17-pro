@@ -1,22 +1,19 @@
-/* RESET GENERAL */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
   min-height: 100vh;
+  background: linear-gradient(180deg,#140b1e,#3b0f0f);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #120b1c, #3a0f0f);
   color: #fff;
-  overflow-x: hidden;
 }
 
-/* LUCES NAVIDEÑAS ANIMADAS */
 .luces {
   position: fixed;
   top: 0;
@@ -24,148 +21,189 @@ body {
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  z-index: 2;
 }
 
 .luces span {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #ffd700;
-  box-shadow: 0 0 8px #ffd700;
+  background: gold;
+  box-shadow: 0 0 8px gold;
   animation: blink 2s infinite alternate;
 }
 
 .luces span:nth-child(even) {
   background: #ff4d4d;
-  box-shadow: 0 0 8px #ff4d4d;
-  animation-delay: 1s;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+  50% { opacity: .3; }
 }
 
-/* CONTENEDOR */
 .contenedor {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,.55);
   padding: 40px 30px;
   border-radius: 25px;
-  text-align: center;
-  max-width: 450px;
+  max-width: 460px;
   width: 90%;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
-  backdrop-filter: blur(8px);
+  text-align: center;
+  box-shadow: 0 0 35px rgba(255,215,0,.4);
 }
 
-/* TITULO */
 h1 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #ffd700;
-  text-shadow: 0 0 8px #ffeb3b;
+  color: gold;
+  font-size: 34px;
+  margin-bottom: 20px;
 }
 
-/* CIFRA */
 .cifra {
   font-size: 44px;
   font-weight: 800;
   cursor: pointer;
-  display: grid;
-  place-items: center;
-  min-height: 1.8em;
 }
 
-.numero {
-  grid-area: 1/1;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: 0.4s;
-  white-space: nowrap;
-}
-
-.numero.activo {
-  opacity: 1;
-  transform: none;
-}
-
-.separador {
-  margin: 0 8px;
-  color: #ffeb3b;
-}
-
-.pulso {
-  animation: pulse 1.8s infinite alternate;
-}
-
-@keyframes pulse {
-  50% { transform: scale(1.05); }
-}
+.pulso { animation: pulse 1.8s infinite; }
+@keyframes pulse { 50% { transform: scale(1.05); } }
 
 .glow {
-  text-shadow: 0 0 12px #ffd700, 0 0 20px #ffeb3b, 0 0 30px #ffcc00;
+  text-shadow: 0 0 12px gold,0 0 25px #ffeb3b;
 }
 
-/* HINT Y OBJETIVO */
 .hint {
   font-size: 14px;
-  color: #ffeb3b;
-  margin-top: 8px;
-  text-shadow: 0 0 4px #ffd700;
+  color: gold;
+  margin-top: 6px;
 }
 
 .objetivo {
   margin-top: 12px;
-  color: #ffe8b3;
   font-size: 18px;
-  text-shadow: 0 0 6px #ffd700;
 }
 
-/* BOTON WHATSAPP */
 .btn-whatsapp {
-  margin-top: 28px;
+  margin-top: 26px;
   display: block;
-  padding: 14px 24px;
+  padding: 14px;
   background: #25d366;
   color: #fff;
-  border-radius: 15px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  box-shadow: 0 0 12px rgba(37, 211, 102, 0.5);
-  transition: 0.3s;
+  border-radius: 14px;
+  font-weight: bold;
 }
 
-.btn-whatsapp:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
+.barra-wrap {
+  margin-top: 18px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: .5s;
 }
 
-/* DECORACION DE ARBOL Y REGALOS */
+.barra-wrap.activo {
+  opacity: 1;
+  transform: none;
+}
+
+.barra {
+  width: 100%;
+  height: 22px;
+  background: #222;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+}
+
+.segmento {
+  width: 0;
+  transition: width 1.3s ease;
+  cursor: pointer;
+}
+
+.rojo { background: linear-gradient(#6b0f1a,#8b1d2c); }
+.verde { background: linear-gradient(#0f4d2f,#1e7f4f); }
+.gris  { background: linear-gradient(#666,#999); }
+
+.circulos {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: .6;
+  cursor: pointer;
+}
+
+.item.activo {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.circulo {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
 .decoracion {
   position: fixed;
   bottom: 10px;
   width: 100%;
   text-align: center;
-  z-index: 1;
 }
 
-.arbol {
-  font-size: 50px;
-  text-shadow: 0 0 12px #4caf50, 0 0 24px #76ff03;
+.arbol { font-size: 48px; }
+.regalos { font-size: 28px; cursor: pointer; }
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: .4s;
+  z-index: 10;
 }
 
-.regalos {
-  font-size: 30px;
-  text-shadow: 0 0 10px #ff5722, 0 0 18px #ff9800;
+.overlay.activo {
+  opacity: 1;
+  pointer-events: all;
 }
 
-/* RESPONSIVE */
-@media(max-width:480px) {
-  .cifra { font-size: 36px; }
+.modal {
+  background: #111;
+  padding: 24px;
+  border-radius: 20px;
+  max-width: 950px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 16px;
+  position: relative;
+  box-shadow: 0 0 30px gold;
+}
+
+.modal img {
+  width: 100%;
+  border-radius: 16px;
+}
+
+.cerrar {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 24px;
+  cursor: pointer;
+  color: gold;
+}
+
+@media(max-width:480px){
   h1 { font-size: 28px; }
-  .objetivo { font-size: 16px; }
-  .btn-whatsapp { font-size: 15px; padding: 12px 20px; }
+  .cifra { font-size: 36px; }
 }

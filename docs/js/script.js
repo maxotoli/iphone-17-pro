@@ -1,51 +1,64 @@
+const principal = document.getElementById("principal");
 const cifra = document.getElementById("cifraToggle");
 const hint = document.getElementById("hintTexto");
-const principal = document.getElementById("principal");
-const detalle = document.getElementById("detalle");
-const actualEl = document.getElementById("actual");
-const totalEl = document.getElementById("total");
+const barraWrap = document.getElementById("barraWrap");
 
-let montoActual = 1345000; // cifra real
-let detalleActivo = false;
-let primera = true;
+const segRojo = document.getElementById("segRojo");
+const segVerde = document.getElementById("segVerde");
+const segGris = document.getElementById("segGris");
 
-const CONFIG_OBJETIVO = 1380000;
+const items = document.querySelectorAll(".item");
 
-// Formatea números con puntos
+const btnRegalos = document.getElementById("btnRegalos");
+const overlay = document.getElementById("overlay");
+const cerrar = document.getElementById("cerrarOverlay");
+
+const OBJETIVO = 1380000;
+const ROJO = 968648;
+const VERDE = 381352;
+const FALTANTE = OBJETIVO - ROJO - VERDE;
+
 const fmt = n => n.toLocaleString("es-CL");
 
-// Animación suave de conteo
-function animar(el, from, to, duration=1200){
+function animar(el, to) {
+  let from = 0;
   const start = performance.now();
-  requestAnimationFrame(function f(now){
-    const progress = Math.min((now-start)/duration,1);
-    el.textContent = fmt(Math.floor(from + (to-from)*(1-Math.pow(1-progress,3))));
-    if(progress < 1) requestAnimationFrame(f);
-  });
-}
-
-// Actualiza la cifra en pantalla
-function actualizar(){
-  const faltan = CONFIG_OBJETIVO - montoActual;
-  totalEl.textContent = fmt(CONFIG_OBJETIVO);
-  if(detalleActivo){
-    animar(actualEl,0,montoActual);
-  } else {
-    animar(principal,0,faltan);
+  function step(now) {
+    const p = Math.min((now - start) / 1000, 1);
+    el.textContent = fmt(Math.floor(from + (to - from) * p));
+    if (p < 1) requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
 }
 
-actualizar();
+animar(principal, FALTANTE);
 
-// Alternar entre diferencia y monto completo
 cifra.onclick = () => {
-  if(primera){
-    cifra.classList.remove("pulso","glow");
-    hint.style.display="none";
-    primera = false;
-  }
-  detalleActivo = !detalleActivo;
-  principal.classList.toggle("activo", !detalleActivo);
-  detalle.classList.toggle("activo", detalleActivo);
-  actualizar();
+  cifra.classList.remove("pulso","glow");
+  hint.style.display = "none";
+  barraWrap.classList.add("activo");
+
+  segRojo.style.width = (ROJO / OBJETIVO * 100) + "%";
+  segVerde.style.width = (VERDE / OBJETIVO * 100) + "%";
+  segGris.style.width  = (FALTANTE / OBJETIVO * 100) + "%";
+};
+
+function activar(tipo) {
+  items.forEach(i => i.classList.remove("activo"));
+  document.querySelector(`[data-tipo="${tipo}"]`).classList.add("activo");
+
+  if (tipo === "rojo") animar(principal, ROJO);
+  if (tipo === "verde") animar(principal, VERDE);
+  if (tipo === "gris") animar(principal, FALTANTE);
+}
+
+items.forEach(i => i.onclick = () => activar(i.dataset.tipo));
+segRojo.onclick = () => activar("rojo");
+segVerde.onclick = () => activar("verde");
+segGris.onclick  = () => activar("gris");
+
+btnRegalos.onclick = () => overlay.classList.add("activo");
+cerrar.onclick = () => overlay.classList.remove("activo");
+overlay.onclick = e => {
+  if (e.target === overlay) overlay.classList.remove("activo");
 };
