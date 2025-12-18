@@ -49,4 +49,3 @@ cifra.onclick = () => {
   detalle.classList.toggle("activo", detalleActivo);
   actualizar();
 };
-
