@@ -12,7 +12,7 @@ const CONFIG_OBJETIVO = 1380000;
 let detalleActivo = false;
 let primera = true;
 
-// Función para formatear números
+// Formateo de números
 const fmt = n => n.toLocaleString("es-CL");
 
 // Animación de números
@@ -25,7 +25,7 @@ function animar(el, from, to, duration=1200){
   });
 }
 
-// Actualiza la visualización
+// Actualiza visualización
 function actualizar(){
   const faltan = CONFIG_OBJETIVO - montoActual;
   totalEl.textContent = fmt(CONFIG_OBJETIVO);
@@ -49,14 +49,14 @@ cifra.onclick = () => {
   actualizar();
 };
 
-// Función para incrementar monto solo por ti
+// Función para incrementar monto manualmente
 function aumentarMonto(cantidad=10000){
   montoActual += cantidad;
   if(montoActual > CONFIG_OBJETIVO) montoActual = CONFIG_OBJETIVO;
   actualizar();
 }
 
-// Cargar monto desde el gist de GitHub
+// Cargar monto desde gist de GitHub
 fetch('https://gist.githubusercontent.com/maxotoli/cc7e68ffa308b87bf72340058e30bdd1/raw/3180a104ad500a434698416118ba3ead3666f81c/monto.json')
   .then(res => res.json())
   .then(data => {
