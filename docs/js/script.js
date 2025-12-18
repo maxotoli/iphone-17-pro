@@ -5,7 +5,7 @@ const detalle = document.getElementById("detalle");
 const actualEl = document.getElementById("actual");
 const totalEl = document.getElementById("total");
 
-let montoActual = 1245000; // cifra real
+let montoActual = 1345000; // cifra real
 let detalleActivo = false;
 let primera = true;
 
@@ -49,3 +49,4 @@ cifra.onclick = () => {
   detalle.classList.toggle("activo", detalleActivo);
   actualizar();
 };
+
