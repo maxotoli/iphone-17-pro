@@ -15,7 +15,7 @@ const cerrar = document.getElementById("cerrarOverlay");
 
 const OBJETIVO = 1380000;
 const ROJO = 968648;
-const VERDE = 381352;
+const VERDE = 411351;
 const FALTANTE = OBJETIVO - ROJO - VERDE;
 
 const fmt = n => n.toLocaleString("es-CL");
