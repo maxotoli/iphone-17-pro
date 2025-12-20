@@ -1,64 +1,74 @@
-const principal = document.getElementById("principal");
-const cifra = document.getElementById("cifraToggle");
-const hint = document.getElementById("hintTexto");
-const barraWrap = document.getElementById("barraWrap");
+document.addEventListener("DOMContentLoaded", () => {
 
-const segRojo = document.getElementById("segRojo");
-const segVerde = document.getElementById("segVerde");
-const segGris = document.getElementById("segGris");
+  const numero = document.getElementById("numero");
+  const reset = document.getElementById("reset");
+  const segmentos = document.querySelectorAll(".seg");
+  const cifra = document.querySelector(".cifra");
+  const celebracion = document.getElementById("celebracion");
 
-const items = document.querySelectorAll(".item");
+  const ROJO = 968648;
+  const VERDE = 381352;
+  const AMARILLO = 60100;
+  const TOTAL = ROJO + VERDE + AMARILLO;
 
-const btnRegalos = document.getElementById("btnRegalos");
-const overlay = document.getElementById("overlay");
-const cerrar = document.getElementById("cerrarOverlay");
+  let actual = 0;
+  const fmt = n => n.toLocaleString("es-CL");
 
-const OBJETIVO = 1380000;
-const ROJO = 968648;
-const VERDE = 411351;
-const FALTANTE = OBJETIVO - ROJO - VERDE;
+  function animar(desde, hasta, dur=700){
+    const start = performance.now();
+    cifra.classList.add("active");
 
-const fmt = n => n.toLocaleString("es-CL");
-
-function animar(el, to) {
-  let from = 0;
-  const start = performance.now();
-  function step(now) {
-    const p = Math.min((now - start) / 1000, 1);
-    el.textContent = fmt(Math.floor(from + (to - from) * p));
-    if (p < 1) requestAnimationFrame(step);
+    function frame(t){
+      const p = Math.min((t-start)/dur,1);
+      const e = 1 - Math.pow(1-p,3);
+      numero.textContent = fmt(Math.round(desde+(hasta-desde)*e));
+      if(p<1) requestAnimationFrame(frame);
+      else cifra.classList.remove("active");
+    }
+    requestAnimationFrame(frame);
   }
-  requestAnimationFrame(step);
-}
 
-animar(principal, FALTANTE);
+  function mostrar(v){
+    animar(actual,v);
+    actual=v;
+  }
 
-cifra.onclick = () => {
-  cifra.classList.remove("pulso","glow");
-  hint.style.display = "none";
-  barraWrap.classList.add("activo");
+  function celebrar(){
+    celebracion.innerHTML="";
 
-  segRojo.style.width = (ROJO / OBJETIVO * 100) + "%";
-  segVerde.style.width = (VERDE / OBJETIVO * 100) + "%";
-  segGris.style.width  = (FALTANTE / OBJETIVO * 100) + "%";
-};
+    for(let i=0;i<120;i++){
+      const c=document.createElement("div");
+      c.className="particula";
+      c.style.left=Math.random()*100+"%";
+      c.style.background=["gold","#ffd700","#fff","#0b5d2a"][Math.floor(Math.random()*4)];
+      c.style.animationDuration=2+Math.random()*2+"s";
+      celebracion.appendChild(c);
+    }
 
-function activar(tipo) {
-  items.forEach(i => i.classList.remove("activo"));
-  document.querySelector(`[data-tipo="${tipo}"]`).classList.add("activo");
+    for(let i=0;i<30;i++){
+      const s=document.createElement("div");
+      s.className="serp";
+      s.style.left=Math.random()*100+"%";
+      s.style.background=["gold","#ffd700","#25d366"][Math.floor(Math.random()*3)];
+      celebracion.appendChild(s);
+    }
 
-  if (tipo === "rojo") animar(principal, ROJO);
-  if (tipo === "verde") animar(principal, VERDE);
-  if (tipo === "gris") animar(principal, FALTANTE);
-}
+    setTimeout(()=>celebracion.innerHTML="",3000);
+  }
 
-items.forEach(i => i.onclick = () => activar(i.dataset.tipo));
-segRojo.onclick = () => activar("rojo");
-segVerde.onclick = () => activar("verde");
-segGris.onclick  = () => activar("gris");
+  mostrar(TOTAL);
+  celebrar();
 
-btnRegalos.onclick = () => overlay.classList.add("activo");
-cerrar.onclick = () => overlay.classList.remove("activo");
-overlay.onclick = e => {
-  if (e.target === overlay) overlay.classList.remove("activo");
-};
+  segmentos.forEach(seg=>{
+    seg.addEventListener("click",()=>{
+      segmentos.forEach(s=>s.classList.remove("activo"));
+      mostrar(Number(seg.dataset.monto));
+    });
+  });
+
+  reset.addEventListener("click",()=>{
+    mostrar(TOTAL);
+    celebrar();
+  });
+
+});

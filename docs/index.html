@@ -3,82 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faltan</title>
+  <title>Llevamos</title>
   <link rel="stylesheet" href="./css/estilos.css">
 </head>
 <body>
 
-<div class="luces">
-  <span></span><span></span><span></span><span></span><span></span>
-</div>
+<div id="celebracion"></div>
 
-<main class="contenedor">
-  <h1>🎄 Faltan:</h1>
+<main class="contenedor fade-in">
+  <h1>Llevamos</h1>
 
-  <div class="cifra pulso glow" id="cifraToggle">
-    <span id="principal">195.000</span>
+  <div class="cifra">
+    <span id="numero">0</span>
   </div>
 
-  <div class="barra-wrap" id="barraWrap">
-    <div class="barra">
-      <div class="segmento rojo" id="segRojo"></div>
-      <div class="segmento verde" id="segVerde"></div>
-      <div class="segmento gris" id="segGris"></div>
-    </div>
+  <p class="instruccion">Haz click en los colores</p>
 
-    <div class="circulos">
-      <div class="item activo" data-tipo="rojo">
-        <span class="circulo rojo"></span> Inicial
-      </div>
-      <div class="item" data-tipo="verde">
-        <span class="circulo verde"></span> Donaciones
-      </div>
-      <div class="item" data-tipo="gris">
-        <span class="circulo gris"></span> Faltante
-      </div>
-    </div>
+  <div class="barra">
+    <div class="seg rojo" data-monto="968648"></div>
+    <div class="seg verde" data-monto="381352"></div>
+    <div class="seg amarillo" data-monto="60100"></div>
   </div>
 
-  <p class="hint" id="hintTexto">Presiona el número</p>
-  <p class="objetivo">🎁 para el iPhone 17 Pro</p>
+  <div class="leyenda">
+    <span class="dot rojo"></span>
+    <span class="dot verde"></span>
+    <span class="dot amarillo"></span>
+  </div>
 
-  <a class="btn-whatsapp"
-     href="https://chat.whatsapp.com/FhxHWzZp7nY6TXDOXmnB1n"
-     target="_blank">
-     Número de cuenta y más info por WhatsApp
-  </a>
+  <button id="reset">Volver al total</button>
 </main>
-
-<div class="decoracion">
-  <div class="arbol">🎄</div>
-  <div class="regalos" id="btnRegalos">🎁 🎁 🎁</div>
-</div>
-
-<!-- OVERLAY REGALOS -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <span class="cerrar" id="cerrarOverlay">✖</span>
-
-    <a href="https://www.falabella.com/falabella-cl/product/17564075/Apple-iPhone-17-Pro-Max/17564075"
-       target="_blank">
-      <img src="https://media.falabella.com/falabellaCL/17564077_1/w=1500,h=1500,fit=cover"
-           alt="Regalo 1">
-    </a>
-
-    <a href="https://www.falabella.com/falabella-cl/product/17564075/Apple-iPhone-17-Pro-Max/17564075"
-       target="_blank">
-      <img src="https://media.falabella.com/falabellaCL/17564075_1/w=1500,h=1500,fit=cover"
-           alt="Regalo 2">
-    </a>
-
-    <a href="https://www.falabella.com/falabella-cl/product/17564075/Apple-iPhone-17-Pro-Max/17564075"
-       target="_blank">
-      <img src="https://media.falabella.com/falabellaCL/17564076_1/w=1500,h=1500,fit=cover"
-           alt="Regalo 3">
-    </a>
-
-  </div>
-</div>
 
 <script src="./js/script.js"></script>
 </body>
